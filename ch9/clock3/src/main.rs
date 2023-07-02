@@ -279,7 +279,7 @@ enum Commands {
     #[arg(help = "When <action> is 'set', apply <datetime>. Otherwise, ignore.")]
     datetime: Option<String>
     },
-    CheckNtp {},
+    CheckNtp,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
@@ -320,7 +320,7 @@ pub fn main() {
 
             Clock::set(t)
         }
-        Commands::CheckNtp {  } => {
+        Commands::CheckNtp => {
             let offset = check_time().unwrap() as isize;
             let adjust_ms_ = offset.signum() * offset.abs().min(200) / 5;
             let adjust_ms = ChronoDuration::milliseconds(adjust_ms_ as i64);
